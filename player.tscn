@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy54krib67xf5"]
+
+[ext_resource type="Texture2D" uid="uid://cl8kw12nvp0qn" path="res://art/Red square.png" id="1_02ywt"]
+[ext_resource type="Script" path="res://player.gd" id="1_pgjqe"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u6p3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_02ywt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7tqa"]
+size = Vector2(50, 49)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_pgjqe")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_u6p3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_s7tqa")
