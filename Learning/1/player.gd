@@ -3,9 +3,15 @@ extends Area2D
 var shot = preload("res://Learning/1/shots/shot.tscn")
 
 @export var speed = 50 # How fast the player will move (pixels/sec).
+var health = 0
 var screen_size # Size of the game window.
 var mouse_pos
 @onready var _animated_sprite = $AnimatedSprite2D
+
+func damage(n):
+	health -= n
+	if health <= 0:
+		queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,8 +24,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
-	var directionX = Input.get_axis("ui_left", "ui_right")
-	var directionY = Input.get_axis("ui_up", "ui_down")
+	var directionX = Input.get_axis("left", "right")
+	var directionY = Input.get_axis("up", "down")
 	velocity.x = directionX
 	velocity.y = directionY
 	
@@ -31,6 +37,7 @@ func _process(delta):
 		position = position.clamp(Vector2.ZERO, screen_size)
 	else:
 		_animated_sprite.play("idle")
+
 func _input(event):
 	if event is InputEventMouseButton:
 		print("Mouse Click/Unclick at: ", event.position)
